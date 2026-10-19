@@ -34,6 +34,8 @@ Legenda:
 - `|` = parede vertical no desenho
 - `_` = parede horizontal (chão ou teto) no desenho
 
+No desenho dos caminhos, as casas livres aparecem em branco e as paredes são desenhadas com `|` ou `_` para facilitar a leitura.
+
 ## Como executar
 
 ```bash
