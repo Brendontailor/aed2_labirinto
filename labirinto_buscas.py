@@ -19,6 +19,7 @@ LABIRINTO = [
 
 
 def encontrar(labirinto, simbolo):
+    """Retorna a posicao (linha, coluna) do simbolo no labirinto."""
     for linha in range(len(labirinto)):
         for coluna in range(len(labirinto[linha])):
             if labirinto[linha][coluna] == simbolo:
@@ -27,6 +28,7 @@ def encontrar(labirinto, simbolo):
 
 
 def eh_livre(labirinto, linha, coluna):
+    """Diz se a posicao existe e nao e parede."""
     if linha < 0 or linha >= len(labirinto):
         return False
     if coluna < 0 or coluna >= len(labirinto[linha]):
@@ -35,6 +37,7 @@ def eh_livre(labirinto, linha, coluna):
 
 
 def eh_parede(labirinto, linha, coluna):
+    """Diz se a posicao existe e e parede."""
     if linha < 0 or linha >= len(labirinto):
         return False
     if coluna < 0 or coluna >= len(labirinto[linha]):
@@ -43,6 +46,7 @@ def eh_parede(labirinto, linha, coluna):
 
 
 def montar_grafo(labirinto):
+    """Monta o grafo com as casas livres e seus vizinhos."""
     grafo = {}
     movimentos = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
@@ -64,6 +68,7 @@ def montar_grafo(labirinto):
 
 
 def reconstruir_caminho(pai, inicio, fim):
+    """Monta o caminho do inicio ate o fim usando o dicionario pai."""
     if fim not in pai:
         return []
 
@@ -81,6 +86,7 @@ def reconstruir_caminho(pai, inicio, fim):
 
 
 def busca_profundidade(grafo, inicio, fim):
+    """DFS: explora o mais fundo possivel usando uma pilha."""
     pilha = [inicio]
     pai = {inicio: None}
     visitados = set()
@@ -107,6 +113,7 @@ def busca_profundidade(grafo, inicio, fim):
 
 
 def busca_largura(grafo, inicio, fim):
+    """BFS: explora em camadas usando uma fila."""
     fila = [inicio]
     pai = {inicio: None}
     visitados = set()
@@ -133,10 +140,12 @@ def busca_largura(grafo, inicio, fim):
 
 
 def distancia_manhattan(posicao, destino):
+    """Calcula a distancia de Manhattan entre duas posicoes."""
     return abs(posicao[0] - destino[0]) + abs(posicao[1] - destino[1])
 
 
 def busca_gulosa(grafo, inicio, fim):
+    """Busca Gulosa: escolhe sempre a casa com menor distancia de Manhattan."""
     fila = [(distancia_manhattan(inicio, fim), inicio)]
     pai = {inicio: None}
     visitados = set()
@@ -164,6 +173,7 @@ def busca_gulosa(grafo, inicio, fim):
 
 
 def desenhar(labirinto, caminho):
+    """Desenha o labirinto com o caminho marcado por '*'."""
     casas_do_caminho = set(caminho)
     desenho = []
 
@@ -195,6 +205,7 @@ def desenhar(labirinto, caminho):
 
 
 def mostrar_caminho(nome, labirinto, caminho):
+    """Imprime o labirinto com um caminho."""
     print(nome)
     for linha in desenhar(labirinto, caminho):
         print(linha)
@@ -202,6 +213,7 @@ def mostrar_caminho(nome, labirinto, caminho):
 
 
 def mostrar_tabela(resultados):
+    """Imprime a tabela comparativa dos algoritmos."""
     print(f"{'Algoritmo':<10}{'Arestas':>9}{'Casas no caminho':>18}{'Casas visitadas':>18}")
     print("-" * 55)
 
@@ -211,6 +223,7 @@ def mostrar_tabela(resultados):
 
 
 def main():
+    """Executa as tres buscas e mostra os resultados."""
     inicio = encontrar(LABIRINTO, "I")
     fim = encontrar(LABIRINTO, "F")
     grafo = montar_grafo(LABIRINTO)
