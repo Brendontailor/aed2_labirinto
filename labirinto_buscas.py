@@ -3,6 +3,7 @@
 #
 # Legenda:
 # I = entrada   F = saida   # = parede   . = caminho livre
+# No desenho: | = parede vertical e _ = parede horizontal (chao ou teto)
 
 LABIRINTO = [
     "#############",
@@ -35,6 +36,14 @@ def eh_livre(labirinto, linha, coluna):
     if coluna < 0 or coluna >= len(labirinto[linha]):
         return False
     return labirinto[linha][coluna] != "#"
+
+
+def eh_parede(labirinto, linha, coluna):
+    if linha < 0 or linha >= len(labirinto):
+        return False
+    if coluna < 0 or coluna >= len(labirinto[linha]):
+        return False
+    return labirinto[linha][coluna] == "#"
 
 
 def montar_grafo(labirinto):
@@ -169,7 +178,14 @@ def desenhar(labirinto, caminho):
             simbolo = labirinto[linha][coluna]
 
             if simbolo == "#":
-                texto += "#"
+                tem_parede_ao_lado = (
+                    eh_parede(labirinto, linha, coluna - 1)
+                    or eh_parede(labirinto, linha, coluna + 1)
+                )
+                if tem_parede_ao_lado:
+                    texto += "_"
+                else:
+                    texto += "|"
             elif simbolo == "I" or simbolo == "F":
                 texto += simbolo
             elif (linha, coluna) in casas_do_caminho:
@@ -211,7 +227,7 @@ def main():
     for linha in LABIRINTO:
         print(linha)
     print()
-    print("Legenda: I = entrada, F = saida, # = parede, * = caminho")
+    print("Legenda: I = entrada, F = saida, * = caminho, | e _ = parede")
     print()
 
     mostrar_caminho("DFS", LABIRINTO, caminho_dfs)
