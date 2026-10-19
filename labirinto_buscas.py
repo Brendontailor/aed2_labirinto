@@ -1,9 +1,5 @@
 # Atividade de AED II - Labirinto
-# Algoritmos: DFS, BFS e Busca Gulosa
-#
-# Legenda:
-# I = entrada   F = saida   # = parede   . = caminho livre
-# No desenho: | = parede vertical e _ = parede horizontal (chao ou teto)
+# Legenda: I = entrada, F = saida, # = parede, . = livre
 
 LABIRINTO = [
     "#############",
